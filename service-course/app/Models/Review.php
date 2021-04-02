@@ -25,10 +25,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Course $courses
  */
 class Review extends Model
 {
     protected $guarded = [];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y M d H:m:s',
+        'updated_at' => 'datetime:Y M d H:m:s',
+    ];
 
     public function courses(){
         return $this->belongsTo(Course::class);

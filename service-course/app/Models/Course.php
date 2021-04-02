@@ -35,20 +35,30 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Course whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Course whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chapter[] $chapters
+ * @property-read int|null $chapters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ImageCourse[] $images
+ * @property-read int|null $images_count
+ * @property-read \App\Models\Mentor $mentor
  */
 class Course extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y M d H:m:s',
+        'updated_at' => 'datetime:Y M d H:m:s',
+    ];
+
     public function mentor(){
-        return $this->belongsTo(Mentor::class);
+        return $this->belongsTo(Mentor::class, 'mentors_id');
     }
 
     public function chapters(){
-        return $this->hasMany(Chapter::class)->orderBy('id', 'ASC');
+        return $this->hasMany(Chapter::class, 'courses_id')->orderBy('id', 'ASC');
     }
 
     public function images(){
-        return $this->hasMany(ImageCourse::class)->orderBy('id', 'DESC');
+        return $this->hasMany(ImageCourse::class, 'courses_id')->orderBy('id', 'DESC');
     }
 }

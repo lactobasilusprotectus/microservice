@@ -25,4 +25,9 @@ use Illuminate\Database\Eloquent\Model;
 class ImageCourse extends Model
 {
     protected $guarded = [];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y M d H:m:s',
+        'updated_at' => 'datetime:Y M d H:m:s',
+    ];
 }

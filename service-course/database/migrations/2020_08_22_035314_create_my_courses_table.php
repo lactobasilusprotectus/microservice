@@ -15,7 +15,7 @@ class CreateMyCoursesTable extends Migration
     {
         Schema::create('my_courses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('courses_id')->unique()->constrained()->onDelete('cascade');
+            $table->foreignId('courses_id')->constrained()->onDelete('cascade');
             $table->integer('user_id')->unique();
             $table->timestamps();
         });

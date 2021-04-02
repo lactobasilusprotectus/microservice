@@ -21,12 +21,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Lesson[] $lessons
+ * @property-read int|null $lessons_count
  */
 class Chapter extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y M d H:m:s',
+        'updated_at' => 'datetime:Y M d H:m:s',
+    ];
+
     public function lessons(){
-        return $this->hasMany(Lesson::class)->orderBy('id', 'ASC');
+        return $this->hasMany(Lesson::class, 'chapters_id')->orderBy('id', 'ASC');
     }
 }

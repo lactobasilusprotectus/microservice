@@ -21,10 +21,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|MyCourse whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MyCourse whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Course $courses
  */
 class MyCourse extends Model
 {
     protected $guarded = [];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y M d H:m:s',
+        'updated_at' => 'datetime:Y M d H:m:s',
+    ];
 
     public function courses(){
         return $this->belongsTo(Course::class);
